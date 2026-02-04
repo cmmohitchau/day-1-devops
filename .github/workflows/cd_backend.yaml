@@ -6,11 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on:  ubuntu-lates
+    runs-on:  ubuntu-latest
   steps:
       #Step 1:  Checkout the code
     - name: Checkout the code
-      uses: actions/chekout@v4
+      uses: actions/checkout@v4
 
     - name: Setup the Docker Buildx
       uses: docker/setup-buildx-action@v3
