@@ -1,31 +1,31 @@
+
 name: devops-01-backend
 on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on:  ubuntu-latest
-  steps:
+    steps:
       #Step 1:  Checkout the code
-    - name: Checkout the code
-      uses: actions/checkout@v4
+      - name: Checkout the code
+        uses: actions/checkout@v4
 
-    - name: Setup the Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      - name: Setup the Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-    - name: login to docker
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME  }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD  }}
-    
-    - name: Build and push the image
-      uses: docker/build-push-actions@v4
-      with:
-        context:  .
-        push: true
-        tags: mohitprasad004/backend:${{  github.sha  }}
+      - name: login to docker
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME  }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD  }}
+      
+      - name: Build and push the image
+        uses: docker/build-push-actions@v4
+        with:
+          context:  .
+          push: true
+          tags: mohitprasad004/backend:${{  github.sha  }}
 
 
