@@ -27,6 +27,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          dockerfile: ./Docker/backend.dockerfile
+          file: ./Docker/backend.dockerfile
           push: true
           tags: mohitprasad004/backend:${{ github.sha }}
