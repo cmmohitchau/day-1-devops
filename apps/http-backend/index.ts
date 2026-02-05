@@ -7,6 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/healthy" , (req , res) => {
+    res.json({
+        message : "healthy server"
+    })
+})
 app.post("/signup" , async (req , res) => {
     
     const { email , name } = req.body;
