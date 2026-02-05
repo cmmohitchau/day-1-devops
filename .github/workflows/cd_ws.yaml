@@ -45,4 +45,6 @@ jobs:
             docker run --name user_ws -d -p 3000:3000 \
               -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
               mohitprasad004/ws-demo:${{ github.sha }}
+
+            docker image prune -af
           EOF

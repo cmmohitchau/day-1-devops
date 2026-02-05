@@ -45,4 +45,6 @@ jobs:
             docker run --name user_frontend -d -p 3000:3000 \
               -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
               mohitprasad004/frontend-demo:${{ github.sha }}
+
+            docker image prune -af
           EOF
