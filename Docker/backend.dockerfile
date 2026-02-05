@@ -2,6 +2,8 @@ FROM oven/bun:latest
 
 WORKDIR /usr/src/app
 
+ARG DATABASE_URL
+
 COPY ./bun.lock ./bun.lock
 
 COPY ./package.json ./package.json
@@ -14,7 +16,7 @@ COPY ./apps/http-backend ./apps/http-backend
 
 RUN bun install
 
-RUN bun run generate:db
+RUN DATABASE_URL=$DATABASE_URL bun run generate:db
 
 EXPOSE 3002
 
