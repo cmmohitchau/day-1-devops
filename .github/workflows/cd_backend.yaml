@@ -34,16 +34,16 @@ jobs:
 
       - name: Deploy to server via SSH
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
           chmod 600 ~/ssh_key
 
           mkdir -p ~/.ssh
-          echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "${{ secrets.KNOWN_HOSTS }}" &> ~/.ssh/known_hosts
 
           ssh -i ~/ssh_key ubuntu@${{ secrets.SERVER_HOST }} -o StrictHostKeyChecking=no << 'EOF'
             docker rm -f user_backend || true
             docker pull mohitprasad004/backend:${{ github.sha }}
-            docker run --name user_backend -d -p 8080:8080 \
+            docker run --name user_backend -d -p 3002:3002 \
               -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
               mohitprasad004/backend:${{ github.sha }}
           EOF
