@@ -28,5 +28,7 @@ jobs:
         with:
           context: .
           file: ./Docker/backend.dockerfile
+          env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL  }}
           push: true
           tags: mohitprasad004/backend:${{ github.sha }}
