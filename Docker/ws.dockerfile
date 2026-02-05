@@ -12,9 +12,11 @@ COPY ./packages ./packages
 
 COPY ./apps/ws ./apps/ws
 
+ARG DATABASE_URL
+
 RUN bun install
 
-RUN bun run generate:db
+RUN DATABASE_URL=$DATABASE_URL bun run generate:db
 
 EXPOSE 8080
 

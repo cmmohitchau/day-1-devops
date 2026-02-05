@@ -12,11 +12,12 @@ COPY ./packages ./packages
 
 COPY ./apps/my-app ./apps/my-app
 
+ARG DATABASE_URL
+
 RUN bun install
 
-RUN bun run generate:db
+RUN DATABASE_URL=$DATABASE_URL bun run generate:db
 
-ARG DATABASE_URL
 
 RUN DATABASE_URL=$DATABASE_URL bun run build 
 
