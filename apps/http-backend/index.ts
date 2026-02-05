@@ -30,6 +30,17 @@ app.post("/signup" , async (req , res) => {
         message : "user created",
         id : user.id
     })
+});
+
+app.get("/users" , async (req , res) => {
+    const users = await prisma.user.findMany();
+
+    console.log("users : " , users);
+
+    res.status(200).json({
+        users : users
+    })
+    
 })
 
 app.listen(3002 , () => {
