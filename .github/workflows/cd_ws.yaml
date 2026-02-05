@@ -30,3 +30,19 @@ jobs:
             DATABASE_URL=${{secrets.DATABASE_URL}}
           push: true
           tags: mohitprasad004/ws-demo:${{github.sha}}
+
+      - name: Deploy to server via SSH
+        run:  |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
+          chmod 700 ~/ssh_key
+
+          mkdir -p ~/.ssh
+          echo "${{ secrets.KNOWN_HOSTS }}" &> ~/.ssh/known_hosts
+
+          ssh -i ~/ssh_key ubuntu@${{ secrets.SERVER_HOST }} -o StrictHostKeyChecking=no << 'EOF'
+            docker rm -f user_ws || true
+            docker pull mohitprasad004/ws-demo:${{ github.sha }}
+            docker run --name user_ws -d -p 3000:3000 \
+              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+              mohitprasad004/ws-demo:${{ github.sha }}
+          EOF
